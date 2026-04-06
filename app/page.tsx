@@ -3,7 +3,6 @@ import { getMarkdownFile } from "@/lib/markdown";
 
 export default async function Home() {
   const hero = await getMarkdownFile("home/hero.md");
-  const teasers = await getMarkdownFile("home/teasers.md");
 
   return (
     <div className="flex flex-col gap-24 mt-12 animate-in fade-in slide-in-from-bottom-4 duration-700 ease-in-out">
@@ -44,57 +43,6 @@ export default async function Home() {
             className="inline-flex items-center justify-center px-6 py-3 border border-black dark:border-white bg-black dark:bg-white text-white dark:text-black hover:bg-white hover:text-black dark:hover:bg-black dark:hover:text-white transition-colors font-medium rounded-sm"
           >
             {hero.frontmatter.cta_label as string}
-          </Link>
-        </div>
-      </section>
-
-      {/* Teasers Section */}
-      <section className="grid gap-12 md:grid-cols-3">
-        {/* Projects */}
-        <div className="space-y-4 group">
-          <h2 className="text-xl font-semibold border-b border-gray-200 dark:border-gray-800 pb-2">
-            {teasers.frontmatter.projects_title as string}
-          </h2>
-          <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-            {teasers.frontmatter.projects_description as string}
-          </p>
-          <Link 
-            href={teasers.frontmatter.projects_link as string}
-            className="inline-block text-sm font-medium text-black group-hover:underline underline-offset-4"
-          >
-            View Projects →
-          </Link>
-        </div>
-
-        {/* Achievements */}
-        <div className="space-y-4 group">
-          <h2 className="text-xl font-semibold border-b border-gray-200 dark:border-gray-800 pb-2">
-            {teasers.frontmatter.achievements_title as string}
-          </h2>
-          <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-            {teasers.frontmatter.achievements_description as string}
-          </p>
-          <Link 
-            href={teasers.frontmatter.achievements_link as string}
-            className="inline-block text-sm font-medium text-black group-hover:underline underline-offset-4"
-          >
-            Read Timeline →
-          </Link>
-        </div>
-
-        {/* Blog */}
-        <div className="space-y-4 group">
-          <h2 className="text-xl font-semibold border-b border-gray-200 dark:border-gray-800 pb-2">
-            {teasers.frontmatter.blog_title as string}
-          </h2>
-          <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-            {teasers.frontmatter.blog_description as string}
-          </p>
-          <Link 
-            href={teasers.frontmatter.blog_link as string}
-            className="inline-block text-sm font-medium text-black group-hover:underline underline-offset-4"
-          >
-            Read Articles →
           </Link>
         </div>
       </section>
