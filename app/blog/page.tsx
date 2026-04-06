@@ -34,7 +34,7 @@ export default async function BlogPage() {
             </p>
             {post.frontmatter.tags && (
               <div className="flex gap-2 pt-1">
-                 {(post.frontmatter.tags as string[]).map(tag => (
+                 {(post.frontmatter.tags as unknown as string[]).map(tag => (
                    <span key={tag} className="text-xs text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors cursor-pointer">
                      #{tag}
                    </span>

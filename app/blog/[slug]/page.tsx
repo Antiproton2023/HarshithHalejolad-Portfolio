@@ -48,7 +48,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
             {post.frontmatter.tags && (
               <div className="flex gap-2">
                 •
-                {(post.frontmatter.tags as string[]).map(tag => (
+                {(post.frontmatter.tags as unknown as string[]).map(tag => (
                   <span key={tag}>#{tag}</span>
                 ))}
               </div>

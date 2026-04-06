@@ -25,7 +25,7 @@ export default async function AchievementsPage() {
               <div className="aspect-video w-full bg-gray-100 overflow-hidden border-b border-gray-200">
                 <img 
                   src={achievement.frontmatter.image as string} 
-                  alt={achievement.frontmatter.title as string} 
+                  alt={achievement.frontmatter.title as unknown as string} 
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
               </div>

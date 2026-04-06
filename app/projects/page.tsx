@@ -41,7 +41,7 @@ export default async function ProjectsPage() {
 
               {project.frontmatter.tags && (
                 <div className="flex flex-wrap gap-2 pt-2">
-                  {(project.frontmatter.tags as string[]).map(tag => (
+                  {(project.frontmatter.tags as unknown as string[]).map(tag => (
                     <span key={tag} className="text-xs font-mono bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 px-2 py-1 rounded-sm">
                       {tag}
                     </span>
