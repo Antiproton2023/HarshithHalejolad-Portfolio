@@ -1,101 +1,103 @@
-import Image from "next/image";
+import Link from "next/link";
+import { getMarkdownFile } from "@/lib/markdown";
 
-export default function Home() {
+export default async function Home() {
+  const hero = await getMarkdownFile("home/hero.md");
+  const teasers = await getMarkdownFile("home/teasers.md");
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <div className="flex flex-col gap-24 mt-12 animate-in fade-in slide-in-from-bottom-4 duration-700 ease-in-out">
+      {/* Hero Section */}
+      <section className="space-y-6">
+        <h1 className="text-4xl md:text-5xl font-bold tracking-tight inline-flex items-center gap-4">
+          {hero.frontmatter.name as string}
+          <div className="flex items-center gap-3 mt-1">
+            {hero.frontmatter.socials && typeof hero.frontmatter.socials === 'object' && Object.entries(hero.frontmatter.socials).map(([platform, link]) => {
+              if (platform === 'github') return (
+                <a key={platform} href={link as string} target="_blank" className="text-gray-400 hover:text-black dark:hover:text-white transition-colors" title="GitHub">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+                </a>
+              )
+              if (platform === 'gmail') return (
+                <a key={platform} href={link as string} className="text-gray-400 hover:text-black dark:hover:text-white transition-colors" title="Gmail">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                </a>
+              )
+              if (platform === 'devto') return (
+                <a key={platform} href={link as string} target="_blank" className="font-bold text-sm tracking-wide border border-current rounded-sm px-1 text-gray-400 hover:text-black dark:hover:text-white transition-colors" title="Dev.to">
+                  DEV
+                </a>
+              )
+              return null;
+            })}
+          </div>
+        </h1>
+        <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-400 font-medium tracking-tight">
+          {hero.frontmatter.tagline as string}
+        </p>
+        <p className="text-lg text-gray-500 dark:text-gray-500 max-w-2xl leading-relaxed">
+          {hero.frontmatter.description as string}
+        </p>
+        <div className="pt-4">
+          <Link 
+            href={hero.frontmatter.cta_link as string}
+            className="inline-flex items-center justify-center px-6 py-3 border border-black dark:border-white bg-black dark:bg-white text-white dark:text-black hover:bg-white hover:text-black dark:hover:bg-black dark:hover:text-white transition-colors font-medium rounded-sm"
           >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            {hero.frontmatter.cta_label as string}
+          </Link>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </section>
+
+      {/* Teasers Section */}
+      <section className="grid gap-12 md:grid-cols-3">
+        {/* Projects */}
+        <div className="space-y-4 group">
+          <h2 className="text-xl font-semibold border-b border-gray-200 dark:border-gray-800 pb-2">
+            {teasers.frontmatter.projects_title as string}
+          </h2>
+          <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+            {teasers.frontmatter.projects_description as string}
+          </p>
+          <Link 
+            href={teasers.frontmatter.projects_link as string}
+            className="inline-block text-sm font-medium text-black group-hover:underline underline-offset-4"
+          >
+            View Projects →
+          </Link>
+        </div>
+
+        {/* Achievements */}
+        <div className="space-y-4 group">
+          <h2 className="text-xl font-semibold border-b border-gray-200 dark:border-gray-800 pb-2">
+            {teasers.frontmatter.achievements_title as string}
+          </h2>
+          <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+            {teasers.frontmatter.achievements_description as string}
+          </p>
+          <Link 
+            href={teasers.frontmatter.achievements_link as string}
+            className="inline-block text-sm font-medium text-black group-hover:underline underline-offset-4"
+          >
+            Read Timeline →
+          </Link>
+        </div>
+
+        {/* Blog */}
+        <div className="space-y-4 group">
+          <h2 className="text-xl font-semibold border-b border-gray-200 dark:border-gray-800 pb-2">
+            {teasers.frontmatter.blog_title as string}
+          </h2>
+          <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+            {teasers.frontmatter.blog_description as string}
+          </p>
+          <Link 
+            href={teasers.frontmatter.blog_link as string}
+            className="inline-block text-sm font-medium text-black group-hover:underline underline-offset-4"
+          >
+            Read Articles →
+          </Link>
+        </div>
+      </section>
     </div>
   );
 }
