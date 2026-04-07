@@ -4,11 +4,10 @@ export const metadata = {
 };
 
 export default function ResumePage() {
-  const resumeUrl = "/resume.pdf";
-  // The Google Viewer needs a full absolute URL. 
-  // On local dev this won't show the PDF (it'll show the fallback), 
-  // but on Vercel it will be crystal clear.
-  const googleViewerUrl = `https://docs.google.com/viewer?url=https://harshith-halejolad.vercel.app/resume.pdf&embedded=true`;
+  const resumePreviewUrl = "/resume.pdf";
+  // We use the direct PDF path for the iframe.
+  // Modern browsers (Chrome, Safari, Edge, Firefox) have excellent built-in PDF viewers.
+  // This ensures the preview works on localhost and reflects changes instantly on Vercel.
 
   return (
     <div className="flex flex-col h-[85vh] fade-in w-full max-w-4xl mx-auto overflow-hidden">
@@ -21,14 +20,14 @@ export default function ResumePage() {
         </div>
         <div className="flex gap-4">
           <a
-            href={resumeUrl}
+            href={resumePreviewUrl}
             target="_blank"
             className="hidden md:flex text-sm font-medium border border-gray-200 dark:border-gray-800 px-5 py-2.5 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors rounded-sm shadow-sm"
           >
             Open in New Tab ↗
           </a>
           <a
-            href={resumeUrl}
+            href={resumePreviewUrl}
             download
             className="text-sm font-medium border border-black dark:border-white px-5 py-2.5 bg-black dark:bg-white text-white dark:text-black hover:bg-white hover:text-black dark:hover:bg-black dark:hover:text-white transition-all rounded-sm flex-shrink-0 shadow-sm"
           >
@@ -37,10 +36,10 @@ export default function ResumePage() {
         </div>
       </header>
 
-      {/* The Bulletproof "Classic Viewer" Strategy */}
+      {/* The Bulletproof "Native Viewer" Strategy */}
       <div className="flex-grow w-full border border-gray-200 dark:border-gray-800 rounded-sm overflow-hidden bg-neutral-200 dark:bg-neutral-900 group relative">
         <iframe
-          src={googleViewerUrl}
+          src={resumePreviewUrl}
           className="w-full h-full border-none rounded-none"       
           title="Resume PDF Viewer"
         />
@@ -53,14 +52,14 @@ export default function ResumePage() {
             </p>
             <div className="flex flex-col gap-4 pointer-events-auto">
               <a
-                href={resumeUrl}
+                href={resumePreviewUrl}
                 target="_blank"
                 className="px-6 py-3 bg-black dark:bg-white text-white dark:text-black font-semibold rounded-sm text-sm"
               >
                 View PDF Directly ↗
               </a>
               <a
-                href={resumeUrl}
+                href={resumePreviewUrl}
                 download
                 className="text-xs text-gray-400 hover:text-black dark:hover:text-white underline transition-colors"
               >
